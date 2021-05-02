@@ -38,7 +38,6 @@ class ChartPlot(pg.PlotItem):
     def getPosInScene(self, pos):
         return self.vb.mapSceneToView(pos)
 
-
     def __init__(self, *args, **kwds):
         pg.PlotItem.__init__(self, *args, **kwds)
 

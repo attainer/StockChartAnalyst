@@ -1,13 +1,16 @@
+import sys
+sys.path.append('./widget')
+sys.path.append('./lib')
+
 import pyqtgraph as pg
+from pyqtgraph.dockarea import *
 from PyQt5.QtWidgets import *
 from PyQt5 import *
-from pyqtgraph.dockarea import *
-import sys
+
 from stockChartWidget import StockChartWidget
 from stockChart import StockChart
 from stockDB import StockDB
 from datetime import datetime, timedelta
-import Util
 import win32com.client
 
 form_class = uic.loadUiType("chart.ui")[0]
@@ -28,7 +31,6 @@ class MyWindow(QMainWindow, form_class):
 
         self.stockChartWidget.setTool(self.tooltip)
         self.stockChartWidget.setSlider(self.slider_horizon)
-
         
         self.uploaded = []
 
@@ -48,10 +50,8 @@ class MyWindow(QMainWindow, form_class):
         self.button_week.clicked.connect(self.changePeriodWeek)
         self.button_month.clicked.connect(self.changePeriodMonth)
 
-
         self.codeManager = win32com.client.Dispatch('CpUtil.CpCodeMgr');
         self.nameList = {}
-
 
     def uploadFile(self):
         fileName = QtGui.QFileDialog.getOpenFileName(
@@ -122,7 +122,6 @@ class MyWindow(QMainWindow, form_class):
         prev = int(prev)
         next = int(next)
 
-
         targetDate = datetime(year=int(date[0:4]), month=int(date[4:6]), day=int(date[6:8]))
         prevDate = (targetDate - timedelta(days=prev * 2 + 2)).strftime('%Y%m%d')
         nextDate = (targetDate + timedelta(days=next * 2 + 2)).strftime('%Y%m%d')
@@ -175,48 +174,6 @@ class MyWindow(QMainWindow, form_class):
             if 'cap' in chartData[-1]:
                 self.label_volume_total.setText(str(round(chartData[-1]['cap'] / 100000000)) + '억')
 
-    def getLocalMinimum(self, data):
-            priceHistory = [-1]
-            priceLowHistory = [[-1,False]] #isLowValue?
-
-            for i in range(1, len(data) - 1, 2):
-                candle = Util.MergeCandle([data[i-1], data[i]])
-                value = min(candle['open'], candle['close'])
-                if priceHistory[-1] != value:
-                    priceHistory.append(value)
-
-                low = candle['low']
-                isLow = False
-                if low != value:
-                    isLow = True
-
-                if priceLowHistory[-1][0] != low:
-                    priceLowHistory.append([low, isLow])
-                elif isLow == False:
-                    priceLowHistory[-1][1] = False
-
-            localMinimum = {}
-            for i in range(1, len(priceHistory) - 1):
-                a = priceHistory[i-1]
-                b = priceHistory[i]
-                c = priceHistory[i+1]
-
-                if a > b < c:
-                    if b not in localMinimum:
-                        localMinimum[b] = 0
-                    localMinimum[b] += 1
-
-            for i in range(1, len(priceLowHistory) - 1):
-                a = priceLowHistory[i-1]
-                b = priceLowHistory[i]
-                c = priceLowHistory[i+1]
-
-                if a[0] > b[0] < c[0] and b[1] == True:
-                    if b[0] not in localMinimum:
-                        localMinimum[b[0]] = 0
-                    localMinimum[b[0]] += 1
-            return localMinimum
-    
     def changePeriod(self, period):
         if period == 'D':
             self.chartType = 'D'
@@ -249,9 +206,6 @@ class MyWindow(QMainWindow, form_class):
 
     def changePeriodMonth(self):
         self.changePeriod('M')
-
-
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

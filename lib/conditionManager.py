@@ -1,7 +1,9 @@
 import sys
+
 from stockChart import StockChart
 from stockDB import StockDB
 from multiprocessing import Pool
+import pathlib
 import copy
 
 class Result:
@@ -38,6 +40,7 @@ class ConditionManager:
         for key, value in self.results.items():
             print("{}, 총 발생: {}, 산술평균: {:.2%}, 기하평균: {:.2%}, 발생확률: {:.1%}".format(key, value.count, value.sum / value.count - 1, value.mul ** (1. / value.count) - 1, value.count / totalCnt));
 
+            pathlib.Path("result").mkdir(exist_ok=True)
             f = open("result/" + key + ".txt", "w")
             for text in value.data:
                 f.write(text + '\n')

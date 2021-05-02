@@ -110,7 +110,6 @@ class StockChart:
         return newData
 
     def getMinChart(self, code, fromDate, toDate, period = 1):
-
         info = self.stockDB.minInfo.find_one({"code" : code})
 
         isNeedUpdate = False

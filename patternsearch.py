@@ -1,11 +1,17 @@
+import sys
+sys.path.append('./widget')
+sys.path.append('./lib')
+
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5 import uic
+
 import sys
 import os
 import ctypes
 import subprocess
+import pathlib
 
 CP_console = "cp" + str(ctypes.cdll.kernel32.GetConsoleOutputCP())
 form_class = uic.loadUiType("검색기.ui")[0]
@@ -64,9 +70,12 @@ class MyWindow(QMainWindow, form_class):
         appender = "\n        "
         pycode = pycode.split("\n")
         pycode = appender + appender.join(pycode)
+        pathlib.Path("tmp").mkdir(exist_ok=True)
         f = open("tmp/tmp.py", 'w', encoding="utf-8")
         f.write("""
 import os, sys
+sys.path.append('widget')
+sys.path.append('lib')
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from conditionManager import ConditionManager
