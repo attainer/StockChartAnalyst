@@ -4,7 +4,7 @@ from pyqtgraph import QtCore, QtGui
 class CandlestickItem(pg.GraphicsObject):
     def __init__(self, data):
         pg.GraphicsObject.__init__(self)
-        self.datas = data  ## data must have fields: time, open, close, min, max
+        self.datas = data
         self.point = ""
         self.generatePicture()
         self.informViewBoundsChanged()
@@ -16,8 +16,6 @@ class CandlestickItem(pg.GraphicsObject):
         self.informViewBoundsChanged()
     
     def generatePicture(self):
-        ## pre-computing a QPicture object allows paint() to run much more quickly, 
-        ## rather than re-drawing the shapes every time.
         self.picture = QtGui.QPicture()
         p = QtGui.QPainter(self.picture)
         w = 1 / 3.
@@ -69,7 +67,4 @@ class CandlestickItem(pg.GraphicsObject):
         p.drawPicture(0, 0, self.picture)
     
     def boundingRect(self):
-        ## boundingRect _must_ indicate the entire area that will be drawn on
-        ## or else we will get artifacts and possibly crashing.
-        ## (in this case, QPicture does all the work of computing the bouning rect for us)
         return QtCore.QRectF(self.picture.boundingRect())
