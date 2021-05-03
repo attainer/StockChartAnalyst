@@ -11,7 +11,6 @@ from stockChartWidget import StockChartWidget
 from stockChart import StockChart
 from stockDB import StockDB
 from datetime import datetime, timedelta
-import win32com.client
 
 form_class = uic.loadUiType("ui/차트.ui")[0]
 
@@ -34,7 +33,8 @@ class MyWindow(QMainWindow, form_class):
         
         self.uploaded = []
 
-        self.chart = StockChart(StockDB())
+        self.db = StockDB()
+        self.chart = StockChart(self.db)
 
         self.chartType = 'D'
         self.period = 1
@@ -49,9 +49,6 @@ class MyWindow(QMainWindow, form_class):
         self.button_day.clicked.connect(self.changePeriodDay)
         self.button_week.clicked.connect(self.changePeriodWeek)
         self.button_month.clicked.connect(self.changePeriodMonth)
-
-        self.codeManager = win32com.client.Dispatch('CpUtil.CpCodeMgr');
-        self.nameList = {}
 
     def uploadFile(self):
         fileName = QtGui.QFileDialog.getOpenFileName(
@@ -162,13 +159,8 @@ class MyWindow(QMainWindow, form_class):
             
             self.stockChartWidget.updateData(chartData, self.chartType, date)
 
-            companyName = ""
-            try:
-                companyName = self.nameList[code]
-            except:
-                self.nameList[code] = self.codeManager.CodeToName(code)
-                companyName = self.nameList[code]
-
+            info = self.db.info.find_one({"code" : code});
+            companyName = info['name']
 
             self.label_company_name.setText(companyName)
             if 'cap' in chartData[-1]:

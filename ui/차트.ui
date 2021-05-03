@@ -123,6 +123,9 @@
          </property>
         </widget>
         <widget class="QPushButton" name="button_1min">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="geometry">
           <rect>
            <x>620</x>
@@ -149,6 +152,9 @@
          </property>
         </widget>
         <widget class="QPushButton" name="button_5min">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="geometry">
           <rect>
            <x>600</x>
@@ -345,6 +351,9 @@ p, li { white-space: pre-wrap; }
          </property>
         </widget>
         <widget class="QPushButton" name="button_15min">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="geometry">
           <rect>
            <x>580</x>
