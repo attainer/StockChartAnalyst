@@ -101,7 +101,8 @@ class GameManager:
             self.minCharts[x] = minChart
             return minChart
 
-    def 상한가(self, current):
+    def 상한가(self, x):
+        current = self.preChart[x]
         if current['high'] / current['prev'] > 1.28 and current['volume'] > 100000:
             curHoga = current['prev'];
             while True:
@@ -159,7 +160,8 @@ class GameManager:
             self.code = code[0]
             self.group = code[1]
 
-            self.chart = self.stockChart.getDayChart(self.code, self.fromDate, self.toDate)
+            self.preChart = self.stockChart.getDayChart(self.code, self.fromDate, self.toDate)
+            self.chart = self.preChart
             if self.isModified:
                 self.chart = self.getModifiedChart(self.chart)
 
