@@ -23,6 +23,11 @@
 
 * [설치법](https://github.com/attainer/StockChartAnalyst/wiki/%EC%84%A4%EC%B9%98%EB%B0%A9%EB%B2%95)
 
+# 사용방법
+사용 방법은 다음 페이지를 참고하십시오.
+
+* [사용법](https://github.com/attainer/StockChartAnalyst/wiki/%EC%82%AC%EC%9A%A9%EB%B2%95)
+
 
 # 라이센스
 차트통계분석기는 GNU  GPLv3 라이센스가 적용되어 있습니다. 누구나 상업적 용도를 포함하여 자유롭게 수정, 사용, 재배포 할 수 있습니다. 그러나 프로그램을 수정하여 다시 배포할 경우 반드시 동일한 GNU GPLv3 라이센스를 적용하고 소스코드를 오픈해야합니다.
