@@ -14,7 +14,7 @@ import subprocess
 import pathlib
 
 CP_console = "cp" + str(ctypes.cdll.kernel32.GetConsoleOutputCP())
-form_class = uic.loadUiType("검색기.ui")[0]
+form_class = uic.loadUiType("ui/검색기.ui")[0]
 
 class MyWindow(QMainWindow, form_class):
     def __init__(self):
@@ -24,7 +24,7 @@ class MyWindow(QMainWindow, form_class):
         self.process = QProcess(self)
         self.process.setProcessChannelMode(QProcess.MergedChannels);
         self.process.readyRead.connect(self.dataReady)
-        self.process.finished.connect(self.dataReady)
+        #self.process.finished.connect(self.dataReady)
 
         self.buttonOpenCondition.clicked.connect(self.openCondition)
         self.buttonRunCondition.clicked.connect(self.runCondition)
@@ -109,7 +109,7 @@ if __name__ == '__main__':
         self.process.start('python',['tmp/tmp.py'])
 
     def openChart(self):
-        subprocess.Popen('python uichart.py', shell=True)
+        subprocess.Popen('python 차트.py', shell=True)
 
     def dataReady(self):
         cursor = self.plainTextEdit.textCursor()

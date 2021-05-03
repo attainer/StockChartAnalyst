@@ -13,7 +13,7 @@ from stockDB import StockDB
 from datetime import datetime, timedelta
 import win32com.client
 
-form_class = uic.loadUiType("chart.ui")[0]
+form_class = uic.loadUiType("ui/차트.ui")[0]
 
 class MyWindow(QMainWindow, form_class):
     def __init__(self):
