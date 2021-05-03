@@ -1,6 +1,5 @@
-from stockDB import StockDB
-import pymongo
 import datetime
+from stockDB import StockDB
 
 class StockChart:
     def __init__(self, stockDB = None):

@@ -79,7 +79,7 @@ sys.path.append('lib')
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from conditionManager import ConditionManager
-from conditionManager import GameManager
+from gameManager import GameManager
 class 전략(GameManager):
     def __init__(self, parameters):
         super().__init__(parameters)
