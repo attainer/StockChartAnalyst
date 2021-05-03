@@ -4,6 +4,9 @@ import copy
 from stockChart import StockChart
 from stockDB import StockDB
 
+class ConditionOutOfIndexException(Exception):
+    pass
+
 class Result:
     def __init__(self):
         self.data = []
@@ -34,6 +37,8 @@ class GameManager:
         self.isModified = False
 
     def 일봉(self, x):
+        if x >= len(self.chart) or x < 0:
+            raise ConditionOutOfIndexException()
         return self.chart[x]
 
     def 분봉(self, x):
@@ -108,10 +113,13 @@ class GameManager:
             if self.isModified:
                 self.chart = self.getModifiedChart(self.chart)
 
-            for i in range(0, len(self.chart)-1):
+            for i in range(len(self.chart)):
                 if (self.일봉(i)['volume'] == 0):
                     continue
-                self.Strategy(i);
+                try:
+                    self.Strategy(i);
+                except ConditionOutOfIndexException:
+                    pass
 
         return (self.resultCnt, self.results)
 
