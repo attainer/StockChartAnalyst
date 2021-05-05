@@ -80,6 +80,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from conditionManager import ConditionManager
 from gameManager import GameManager
+from gameFunc import GameFunc
 class 전략(GameManager):
     def __init__(self, parameters):
         super().__init__(parameters)
@@ -88,10 +89,10 @@ class 전략(GameManager):
         self.isModified = {}
     
     def Strategy(self, x):
-        일봉 = self.일봉
-        분봉 = self.분봉
+        일봉 = self.gameFunc.일봉
+        분봉 = self.gameFunc.분봉
         종목코드 = self.code
-        상한가 = self.상한가
+        상한가 = self.gameFunc.상한가
         저장 = self.addResult
         케이스발생 = self.addCase
 {}
