@@ -93,7 +93,7 @@ class 전략(GameManager):
         분봉 = self.gameFunc.분봉
         종목코드 = self.code
         상한가 = self.gameFunc.상한가
-        저장 = self.addResult
+        저장 = self.saveTmpResult
         케이스발생 = self.addCase
 {}
 

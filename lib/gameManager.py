@@ -27,9 +27,9 @@ class GameManager:
     def __init__(self, parameters):
         self.stockChart = StockChart(StockDB())
         self.codeList = parameters
+        self.tmpResults = []
         self.results = {}
         self.resultCnt = 0
-        self.minCharts = {}
         self.fromDate = 0
         self.toDate = 0
         self.isModified = False
@@ -49,26 +49,35 @@ class GameManager:
                 if (self.gameFunc.일봉(i)['volume'] == 0):
                     continue
                 try:
-                    self.Strategy(i);
+                    self.clearTmpResult()
+                    self.Strategy(i)
+                    self.saveResult(i)
                 except ConditionOutOfIndexException:
                     pass
 
         return (self.resultCnt, self.results)
 
-    def setResult(self, key):
-        self.results[key] = Result()
+    def clearTmpResult(self):
+        self.tmpResults.clear()
 
-    def addResult(self, key, 일봉, value):
-        date = 일봉['date']
-        if key not in self.results:
-            self.setResult(key);
+    def saveTmpResult(self, key, value):
+        self.tmpResults.append([key, value])
 
-        self.results[key].sum += value
-        self.results[key].mul *= value
-        self.results[key].count += 1
-        self.results[key].money *= (value)
+    def saveResult(self, i):
+        for result in self.tmpResults:
+            key = result[0]
+            value = result[1]
 
-        self.results[key].data.append(self.code + ' ' + str(date))
+            date = self.gameFunc.일봉(i)['date']
+            if key not in self.results:
+                self.results[key] = Result()
+
+            self.results[key].sum += value
+            self.results[key].mul *= value
+            self.results[key].count += 1
+            self.results[key].money *= (value)
+
+            self.results[key].data.append(self.code + ' ' + str(date))
 
     def addCase(self):
         self.resultCnt += 1
