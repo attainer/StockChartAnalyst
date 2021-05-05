@@ -64,6 +64,9 @@ class GameManager:
         self.tmpResults.append([key, value])
 
     def saveResult(self, i):
+        if len(self.tmpResults) > 0:
+            self.addCase()
+
         for result in self.tmpResults:
             key = result[0]
             value = result[1]

@@ -94,7 +94,6 @@ class 전략(GameManager):
         종목코드 = self.code
         상한가 = self.gameFunc.상한가
         저장 = self.saveTmpResult
-        케이스발생 = self.addCase
 {}
 
 def Run(parameters):
