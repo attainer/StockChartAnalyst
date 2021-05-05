@@ -8,9 +8,9 @@ class ConditionOutOfIndexException(Exception):
     pass
 
 class GameFunc:
-    def __init__(self, group, chart, isModified):
+    def __init__(self, stockChart, group, chart, isModified):
         self.group = group
-        self.stockChart = StockChart(StockDB())
+        self.stockChart = stockChart
         self.chart = chart if not isModified else self.getModifiedChart(chart)
         self.preChart = chart
 

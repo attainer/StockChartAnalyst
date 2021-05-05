@@ -43,7 +43,7 @@ class GameManager:
             self.group = code[1]
 
             dayChart = self.stockChart.getDayChart(self.code, self.fromDate, self.toDate)
-            self.gameFunc = GameFunc(self.group, dayChart, self.isModified)
+            self.gameFunc = GameFunc(self.stockChart, self.group, dayChart, self.isModified)
 
             for i in range(len(dayChart)):
                 if (self.gameFunc.일봉(i)['volume'] == 0):
@@ -84,6 +84,3 @@ class GameManager:
 
     def addCase(self):
         self.resultCnt += 1
-
-if __name__ == "__main__":
-    ConditionManager().Run()
