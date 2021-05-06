@@ -16,6 +16,30 @@ class GameFunc:
 
         self.minCharts = {}
 
+    def 시가(self, x):
+        return self.일봉(x)['open']
+
+    def 고가(self, x):
+        return self.일봉(x)['high']
+
+    def 종가(self, x):
+        return self.일봉(x)['close']
+
+    def 저가(self, x):
+        return self.일봉(x)['low']
+
+    def 거래량(self, x):
+        return self.일봉(x)['volume']
+
+    def 시가총액(self, x):
+        return self.일봉(x)['cap']
+
+    def 전일종가(self, x):
+        return self.일봉(x)['prev']
+
+    def 날짜(self, x):
+        return self.일봉(x)['date']
+
     def 일봉(self, x):
         if x >= len(self.chart) or x < 0:
             raise ConditionOutOfIndexException()

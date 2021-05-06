@@ -75,6 +75,12 @@ class 전략(GameManager):
         종목코드 = self.code
         상한가 = self.gameFunc.상한가
         저장 = self.saveTmpResult
+        시가 = self.gameFunc.시가
+        종가 = self.gameFunc.종가
+        고가 = self.gameFunc.고가
+        저가 = self.gameFunc.저가
+        시가총액 = self.gameFunc.시가총액
+        거래량 = self.gameFunc.거래량
 {}
 
 def Run(parameters):
